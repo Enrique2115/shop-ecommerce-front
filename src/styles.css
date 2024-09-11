@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+h1 {
+  @apply text-3xl font-bold mb-4;
+}
+
+p {
+  @apply mb-4;
+}
+
+strong {
+  @apply font-bold text-indigo-400 text-xl;
+}
+
+em {
+  @apply italic text-pink-500;
+}
+
+/* Animations */
+
+.fade-in {
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
