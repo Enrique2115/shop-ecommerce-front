@@ -1,1 +1,109 @@
-<p>orderCreatePage works!</p>,
+<div class="container mx-auto p-6 bg-white rounded-lg shadow-md">
+  <form [formGroup]="orderForm" (ngSubmit)="submitOrder()">
+    <!-- Cliente Selection -->
+    <div class="mb-6">
+      <label for="client" class="block mb-2 text-sm font-medium text-gray-900"
+        >Seleccionar Cliente:</label
+      >
+      <select
+        id="client"
+        formControlName="clientId"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      >
+        <option *ngFor="let client of clientList()" [value]="client.id">
+          {{ client.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Producto Search -->
+    <div class="mb-6">
+      <label
+        for="searchProduct"
+        class="block mb-2 text-sm font-medium text-gray-900"
+        >Buscar Producto:</label
+      >
+      <input
+        id="searchProduct"
+        type="text"
+        (input)="searchProduct($event)"
+        placeholder="Buscar producto..."
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      />
+      <div class="mt-5">
+        <ul>
+          <li
+            *ngIf="productList().length === 0"
+            class="text-center text-gray-500"
+          >
+            No se encontraron productos con el nombre ingresado.
+          </li>
+          <li
+            *ngFor="let product of productList()"
+            (click)="addToCart(product)"
+            class="flex justify-between items-center bg-gray-100 p-3 rounded-lg my-4"
+          >
+            <div class="flex items-center">
+              <span class="font-medium">{{ product.name }}</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="font-medium">{{ product.price | currency }}</span>
+              <span class="text-sm">Stock: {{ product.stock }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Shopping Cart -->
+    <div class="mb-6">
+      <h2 class="text-lg font-semibold mb-3 text-gray-800">Carrito:</h2>
+      <ul class="space-y-2">
+        <li
+          *ngIf="orderForm.get('products')?.value?.length === 0"
+          class="text-center text-gray-500"
+        >
+          No hay productos en el carrito
+        </li>
+        <li
+          *ngFor="let product of orderForm.get('products')?.value"
+          class="flex justify-between items-center bg-gray-100 p-3 rounded-lg"
+        >
+          <span>{{ product.name }}</span>
+          <div class="flex items-center">
+            <span class="font-medium"
+              >{{ product.price | currency }} x {{ product.quantity }}</span
+            >
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Total -->
+    <div class="mb-6 flex justify-between items-center">
+      <label for="total" class="text-xl font-bold text-gray-800">Total:</label>
+      <h2 class="text-xl font-bold text-gray-800" id="total">
+        {{ orderForm.get("total")?.value | currency }}
+      </h2>
+    </div>
+
+    <div class="flex justify-end space-x-4">
+      <!-- Botón de Cancelar -->
+      <button
+        type="button"
+        (click)="cancelOrder()"
+        class="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg focus:ring-4 focus:ring-red-300"
+      >
+        Cancelar
+      </button>
+      <!-- Create Order Button -->
+      <button
+        type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+        [disabled]="orderForm.invalid"
+      >
+        Crear Orden
+      </button>
+    </div>
+  </form>
+</div>

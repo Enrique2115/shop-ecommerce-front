@@ -37,7 +37,15 @@
         >
           @for(nombre of columnas; track $index ){
           <td class="px-6 py-4">
+            @if(nombre === 'image'){
+            <img
+              src="{{ data[nombre] }}"
+              alt="product image"
+              class="w-20 h-20 rounded-full"
+            />
+            } @else{
             {{ data[nombre] }}
+            }
           </td>
           }
           <td class="py-4 text-left">
