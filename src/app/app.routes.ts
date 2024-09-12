@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { DashboardLayoutComponent } from './presentation/layouts/dashboardLayout/dashboardLayout.component';
+import ProductPageComponent from './presentation/pages/productPage/productPage.component';
 
 export const routes: Routes = [
   {
@@ -17,7 +18,21 @@ export const routes: Routes = [
         },
       },
       {
-        path: 'cart',
+        path: 'products/create',
+        loadComponent: () =>
+          import(
+            './presentation/pages/productCreatePage/productCreatePage.component'
+          ),
+      },
+      {
+        path: 'products/edit/:id',
+        loadComponent: () =>
+          import(
+            './presentation/pages/productEditPage/productEditPage.component'
+          ),
+      },
+      {
+        path: 'orders',
         loadComponent: () =>
           import('./presentation/pages/ordersPage/ordersPage.component'),
         data: {
@@ -25,6 +40,13 @@ export const routes: Routes = [
           title: 'Cart',
           description: 'Cart page',
         },
+      },
+      {
+        path: 'orders/create',
+        loadComponent: () =>
+          import(
+            './presentation/pages/orderCreatePage/orderCreatePage.component'
+          ),
       },
       {
         path: 'clients',
@@ -37,8 +59,15 @@ export const routes: Routes = [
         },
       },
       {
+        path: 'clients/create',
+        loadComponent: () =>
+          import(
+            './presentation/pages/clientCreatePage/clientCreatePage.component'
+          ),
+      },
+      {
         path: '**',
-        redirectTo: 'cart',
+        redirectTo: 'orders',
         pathMatch: 'full',
       },
     ],
