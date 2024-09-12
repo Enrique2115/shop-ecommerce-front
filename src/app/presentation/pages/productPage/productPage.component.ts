@@ -1,27 +1,39 @@
 import { Accion } from '../../../interfaces/tabla-columna';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { getEntityPropiedades } from '../../../utils/entity-properties';
 import { IProduct } from '../../../interfaces/Product';
 import { TableDataComponent } from '../../components/table-data/table-data.component';
 import { Router } from '@angular/router';
+import { ProductService } from '../../services/product.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-page',
   standalone: true,
-  imports: [TableDataComponent],
+  imports: [TableDataComponent, HttpClientModule],
+  providers: [ProductService],
   templateUrl: './productPage.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ProductPageComponent implements OnInit {
-  productList: IProduct[] = [];
-  columnas: string[] = [];
-  title: string = 'Productos';
+  private productService = inject(ProductService);
+  private router = inject(Router);
 
-  constructor(private router: Router) {}
+  public columnas: string[] = [];
+  public productList = signal<IProduct[]>([]);
+  public title: string = 'Productos';
 
   ngOnInit(): void {
     this.columnas = getEntityPropiedades('products');
-    this.productList = [];
+    this.productService.loadProducts().subscribe((data) => {
+      this.productList.set(data);
+    });
   }
 
   onAction(accion: Accion) {

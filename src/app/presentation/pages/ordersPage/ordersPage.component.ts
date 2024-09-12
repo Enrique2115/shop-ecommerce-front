@@ -1,29 +1,40 @@
 import { Accion } from '../../../interfaces/tabla-columna';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { getEntityPropiedades } from '../../../utils/entity-properties';
 import { IOrders } from '../../../interfaces/Orders';
 import { TableDataComponent } from '../../components/table-data/table-data.component';
-import { SearchComponent } from '../../components/searchTable/search.component';
 import { Router } from '@angular/router';
+import { OrderService } from '../../services/order.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ClientService } from '../../services/client.service';
 
 @Component({
   selector: 'app-orders-page',
   standalone: true,
-  imports: [TableDataComponent, SearchComponent],
+  imports: [TableDataComponent, HttpClientModule],
+  providers: [OrderService, ClientService],
   templateUrl: './ordersPage.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class OrdersPageComponent implements OnInit {
-  orderList: IOrders[] = [];
-  columnas: string[] = [];
-  title: string = 'Ordenes';
+  private orderService = inject(OrderService);
+  private clientService = inject(ClientService);
+  private router = inject(Router);
+
+  public orderList = signal<IOrders[]>([]);
+  public columnas: string[] = [];
+  public title: string = 'Ordenes';
 
   ngOnInit(): void {
     this.columnas = getEntityPropiedades('orders');
-    this.orderList = [];
+    this.loadOrders();
   }
-
-  constructor(private router: Router) {}
 
   onAction(accion: Accion) {
     if (accion.accion === 'Crear') {
@@ -35,6 +46,23 @@ export default class OrdersPageComponent implements OnInit {
     } else if (accion.accion == 'Eliminar') {
       this.eliminar(accion.fila.nombre);
     }
+  }
+
+  loadOrders() {
+    this.orderService.loadOrders().subscribe((data) => {
+      const ordersWithClient = data.map(async (order) => {
+        const client = await this.clientService
+          .findClient(order.clientId)
+          .toPromise();
+        return {
+          ...order,
+          clientId: client?.name as string,
+        };
+      });
+      Promise.all(ordersWithClient).then((dataWithClient) => {
+        this.orderList.set(dataWithClient);
+      });
+    });
   }
 
   editar(objeto: IOrders) {
