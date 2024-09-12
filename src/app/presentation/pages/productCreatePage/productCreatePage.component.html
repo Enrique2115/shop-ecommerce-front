@@ -1,23 +1,120 @@
 <div class="container mx-auto p-10">
   <h1 class="text-2xl font-bold mb-5">Crear nuevo producto</h1>
-  <form>
-    <label class="block mb-2 text-sm font-medium text-gray-900"
-      >Nombre del Producto</label
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <div>
+      <label for="productName" class="block text-sm font-medium text-gray-700"
+        >Nombre del producto</label
+      >
+      <input
+        type="text"
+        id="productName"
+        formControlName="productName"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+        placeholder="Ingrese el nombre del producto"
+      />
+    </div>
+
+    <div>
+      <label
+        for="productDescription"
+        class="block text-sm font-medium text-gray-700"
+        >Descripción del producto</label
+      >
+      <textarea
+        id="productDescription"
+        formControlName="productDescription"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+        placeholder="Ingrese la descripción del producto"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="productPrice" class="block text-sm font-medium text-gray-700"
+        >Precio</label
+      >
+      <input
+        type="number"
+        id="productPrice"
+        formControlName="productPrice"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+        placeholder="Ingrese el precio"
+      />
+    </div>
+
+    <div>
+      <label for="productStock" class="block text-sm font-medium text-gray-700"
+        >Stock</label
+      >
+      <input
+        type="number"
+        id="productStock"
+        formControlName="productStock"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+        placeholder="Ingrese el stock"
+      />
+    </div>
+
+    <div>
+      <label for="productBrand" class="block text-sm font-medium text-gray-700"
+        >Marca</label
+      >
+      <input
+        type="text"
+        id="productBrand"
+        formControlName="productBrand"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+        placeholder="Ingrese la marca del producto"
+      />
+    </div>
+
+    <div>
+      <label for="productImage" class="block text-sm font-medium text-gray-700"
+        >Imagen</label
+      >
+      <input
+        type="text"
+        id="productImage"
+        formControlName="productImage"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+        placeholder="Ingrese la url de la imagen del producto"
+      />
+    </div>
+
+    <div>
+      <label for="productSku" class="block text-sm font-medium text-gray-700"
+        >SKU</label
+      >
+      <input
+        type="text"
+        id="productSku"
+        formControlName="productSku"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+        placeholder="Ingrese el SKU del producto"
+      />
+    </div>
+
+    <div>
+      <label
+        for="productCategory"
+        class="block text-sm font-medium text-gray-700"
+        >Categoría</label
+      >
+      <select
+        id="productCategory"
+        formControlName="productCategory"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm"
+      >
+        <option value="" disabled selected>Seleccione una categoría</option>
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option>
+      </select>
+    </div>
+
+    <button
+      type="submit"
+      class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-500"
     >
-    <input
-      type="text"
-      class="block w-full p-2 border rounded mb-4"
-      placeholder="Ingrese el nombre del producto"
-    />
-
-    <label class="block mb-2 text-sm font-medium text-gray-900">Precio</label>
-    <input
-      type="number"
-      class="block w-full p-2 border rounded mb-4"
-      placeholder="Ingrese el precio"
-    />
-
-    <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded">
       Guardar
     </button>
   </form>

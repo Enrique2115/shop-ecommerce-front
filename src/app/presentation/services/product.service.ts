@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { IProduct } from '../../interfaces/Product';
+import { ICreateProduct, IProduct } from '../../interfaces/Product';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -19,7 +19,7 @@ export class ProductService {
     return this.http.get<IProduct[]>(`${this.url}/products/search/${term}`);
   }
 
-  public createProduct(product: IProduct): Observable<IProduct> {
+  public createProduct(product: ICreateProduct): Observable<IProduct> {
     return this.http.post<IProduct>(`${this.url}/products/create`, product);
   }
 }

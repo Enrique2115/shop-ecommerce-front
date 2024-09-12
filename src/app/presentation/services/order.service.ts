@@ -22,4 +22,8 @@ export class OrderService {
   public createOrder(order: ICreateOrders): Observable<ICreateOrders> {
     return this.http.post<ICreateOrders>(`${this.url}/orders/create`, order);
   }
+
+  public cancelOrder(id: string): Observable<IOrders> {
+    return this.http.post<IOrders>(`${this.url}/orders/${id}/cancel`, {});
+  }
 }

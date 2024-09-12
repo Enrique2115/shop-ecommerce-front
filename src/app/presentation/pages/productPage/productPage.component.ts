@@ -49,10 +49,12 @@ export default class ProductPageComponent implements OnInit {
   }
 
   editar(objeto: IProduct) {
+    alert('Funcion no implementada');
     console.log('editar', objeto);
   }
 
   eliminar(nombre: string) {
+    alert('Funcion no implementada');
     console.log('eliminar', nombre);
   }
 }

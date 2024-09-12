@@ -48,17 +48,21 @@
             }
           </td>
           }
-          <td class="py-4 text-left">
-            <a
-              class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-7"
+          <td class="py-4 text-left space-x-2">
+            <button
+              type="button"
+              class="text-blue-600 dark:text-blue-500 hover:underline"
               (click)="onAction('Editar', data)"
-              >Editar</a
             >
-            <a
-              class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              Editar
+            </button>
+            <button
+              type="button"
+              class="text-red-600 dark:text-red-500 hover:underline"
               (click)="onAction('Eliminar', data)"
-              >Eliminar</a
             >
+              Eliminar
+            </button>
           </td>
         </tr>
         }

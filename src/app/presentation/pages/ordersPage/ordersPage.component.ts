@@ -44,7 +44,7 @@ export default class OrdersPageComponent implements OnInit {
     } else if (accion.accion == 'Editar') {
       this.editar(accion.fila);
     } else if (accion.accion == 'Eliminar') {
-      this.eliminar(accion.fila.nombre);
+      this.eliminar(accion.fila.id);
     }
   }
 
@@ -60,16 +60,26 @@ export default class OrdersPageComponent implements OnInit {
         };
       });
       Promise.all(ordersWithClient).then((dataWithClient) => {
-        this.orderList.set(dataWithClient);
+        this.orderList.set(
+          dataWithClient.filter((order) => order.status !== 'CANCELLED')
+        );
       });
     });
   }
 
   editar(objeto: IOrders) {
+    alert('Funcion no implementada');
     console.log('editar', objeto);
   }
 
-  eliminar(nombre: string) {
-    console.log('eliminar', nombre);
+  eliminar(id: string) {
+    console.log('eliminar', id);
+    alert('Orden Cancelada');
+    this.orderService.cancelOrder(id).subscribe((response) => {
+      console.log('Orden eliminada con éxito:', response);
+      this.orderList.set(
+        this.orderList().filter((order: any) => order.id !== id)
+      );
+    });
   }
 }

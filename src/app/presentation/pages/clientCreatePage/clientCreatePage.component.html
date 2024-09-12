@@ -1,1 +1,59 @@
-<p>clientCreatePage works!</p>,
+<div class="container mx-auto p-10">
+  <h1 class="text-2xl font-bold mb-5">Crear nuevo producto</h1>
+  <form class="space-y-6" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name" class="block text-sm font-medium text-gray-700"
+        >Nombre</label
+      >
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+
+    <div>
+      <label for="document" class="block text-sm font-medium text-gray-700"
+        >Documento</label
+      >
+      <input
+        type="text"
+        id="document"
+        formControlName="document"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-700"
+        >Correo</label
+      >
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+
+    <div>
+      <label for="phone" class="block text-sm font-medium text-gray-700"
+        >Teléfono</label
+      >
+      <input
+        type="text"
+        id="phone"
+        formControlName="phone"
+        class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Crear
+    </button>
+  </form>
+</div>

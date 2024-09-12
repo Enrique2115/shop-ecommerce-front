@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient } from '../../interfaces/Client';
+import { IClient, ICreateClient } from '../../interfaces/Client';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class ClientService {
     return this.http.get<IClient>(`${this.url}/client/${id}`);
   }
 
-  public createClient(client: IClient): Observable<IClient> {
+  public createClient(client: ICreateClient): Observable<IClient> {
     return this.http.post<IClient>(`${this.url}/client/create`, client);
   }
 }

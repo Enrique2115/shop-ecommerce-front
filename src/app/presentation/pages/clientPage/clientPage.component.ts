@@ -49,10 +49,12 @@ export default class ClientPageComponent implements OnInit {
   }
 
   editar(objeto: IClient) {
+    alert('Funcion no implementada');
     console.log('editar', objeto);
   }
 
   eliminar(nombre: string) {
+    alert('Funcion no implementada');
     console.log('eliminar', nombre);
   }
 }
